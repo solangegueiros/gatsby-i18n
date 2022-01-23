@@ -6,12 +6,13 @@ import {
   navLinkText,
 } from './layout.module.css'
 
+//Language selection bar
+
 const Language = ({ pageContext }) => {
   const { config } = useLocalization()
   console.log(pageContext.originalPath)
 
   return (
-
     <nav>
       <ul className={navLinks}>
         {config.map(item => (

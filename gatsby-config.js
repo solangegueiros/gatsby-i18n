@@ -1,13 +1,9 @@
-require(`dotenv`).config({
-  path: `.env`,
-})
-
 module.exports = {
   siteMetadata: {
-    siteUrl: `https://gatsby-theme-i18n.netlify.app`,
-    title: "gatsby-theme-i18n",
-    description: `Default example for i18n`,
-    author: `LekoArts`,
+    siteUrl: "https://i18n.solange.blog.br/",
+    title: "Gatsby example i18n",
+    description: "Gatsby example for i18n theme",
+    author: "Solange Gueiros",
   },
   plugins: [
     {
@@ -33,7 +29,7 @@ module.exports = {
       resolve: `gatsby-theme-i18n`,
       options: {
         defaultLang: `en`,
-        locales: process.env.LOCALES || `en es pt`,
+        locales: `en es pt de`,
         configPath: require.resolve(`./i18n/config.json`),
       },
     },

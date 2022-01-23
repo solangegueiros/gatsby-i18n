@@ -6,17 +6,21 @@ import Seo from "../components/seo"
 
 const BlogTemplate = ({ data, pageContext }) => {
   return (
-    <Layout>
-      <Seo title={data.mdx.frontmatter.title} />
-      <h1>Data</h1>
+    <Layout pageContext={pageContext}>
+      <h2>Content page</h2>
       <div>
         {data.mdx ? (
-          <MDXRenderer>{data.mdx.body}</MDXRenderer>
+          <>
+            <Seo title={data.mdx.frontmatter.title} />
+            <MDXRenderer>{data.mdx.body}</MDXRenderer>
+          </>
         ) : (
           <div>This page hasn't been translated yet</div>
         )}
       </div>
-      <h1>Context</h1>
+
+      <h2>Context info</h2>
+      <p>pageContext.originalPath: {pageContext.originalPath}</p>
       <pre>{JSON.stringify(pageContext, null, 2)}</pre>
     </Layout>
   )

@@ -2,23 +2,14 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import { LocalizedLink, useLocalization } from "gatsby-theme-i18n"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
 
-const Index = ({ data, pageContext }) => {
+const Blog = ({ data, pageContext }) => {
   const { locale } = useLocalization()
 
   return (
     <Layout pageContext={pageContext}>
-      <Seo title="Home" />
-      <h1>Hello World {locale}</h1>      
-      <p>This is in the Index page for {locale} language.</p>
+      <h1>Blog - {locale}</h1>
 
-      <br/>
-      <h2>Client page</h2>
-      <p>
-        <LocalizedLink to="/app/gatsby">Link to client-only page</LocalizedLink>
-      </p>
-      <h2>Blog</h2>
       <ul>
         {data.allFile.nodes.map(({ childMdx: node }) => (
           <li key={node.frontmatter.slug}>
@@ -32,7 +23,7 @@ const Index = ({ data, pageContext }) => {
   )
 }
 
-export default Index
+export default Blog
 
 export const query = graphql`
   query($locale: String!) {

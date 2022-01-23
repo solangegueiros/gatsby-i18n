@@ -14,39 +14,43 @@ const components = {
 
 const Layout = ({ children, pageContext }) => {
   const { locale } = useLocalization()
-  //console.log(children)
+  //console.log(pageContext)
 
   return (
     <React.Fragment>
       <header>
-        <Link to="/">Home {locale}</Link>        
-      </header>
-      <nav>
-        <ul className={navLinks}>
-          <li className={navLinkItem}>
-            <Link to="/" className={navLinkText}>
-              Home
-            </Link>
-          </li>
-          <li className={navLinkItem}>
-            <Link to="/locales" className={navLinkText}>
-              Locales info
-            </Link>
-          </li>          
-          <li className={navLinkItem}>
-            <Link to="/page-2/" className={navLinkText}>
-              Page 2
-            </Link>
-          </li>          
-          <li className={navLinkItem}>
-            <Link to="/page-3/" className={navLinkText}>
-              Page 3
-            </Link>
-          </li>
-        </ul>
-      </nav>
+        <nav>
+          <ul className={navLinks}>
+            <li className={navLinkItem}>
+              <Link to="/" className={navLinkText}>
+                Home {locale}
+              </Link>
+            </li>
+            <li className={navLinkItem}>
+              <Link to="/locales" className={navLinkText}>
+                Locales info
+              </Link>
+            </li>          
+            <li className={navLinkItem}>
+              <Link to="/page-2/" className={navLinkText}>
+                Page 2 {locale}
+              </Link>
+            </li>          
+            <li className={navLinkItem}>
+              <Link to="/page-3/" className={navLinkText}>
+                Page 3 {locale}
+              </Link>
+            </li>
+            <li className={navLinkItem}>
+              <Link to="/blog/" className={navLinkText}>
+                Blog {locale}
+              </Link>
+            </li>          
+          </ul>
+        </nav>
 
-      <Language pageContext={pageContext}/>    
+        <Language pageContext={pageContext}/>
+      </header>
 
       <main>
         <MDXProvider components={components}>{children}</MDXProvider>

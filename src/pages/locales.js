@@ -1,14 +1,16 @@
 import * as React from "react"
-import { graphql } from "gatsby"
-import { LocalesList, LocalizedLink as Link, useLocalization } from "gatsby-theme-i18n"
+import { LocaleContext, LocalesList, LocalizedLink as Link, useLocalization } from "gatsby-theme-i18n"
 import Layout from "../components/layout"
 
-const Locales = ({ data }) => {
+const Locales = ({ pageContext }) => {
   const { config, locale } = useLocalization()
+  const localeContext = React.useContext(LocaleContext)
 
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <h1>{locale}</h1>
+
+      <p>LocaleContext: {localeContext}</p>
 
       <h3>Select</h3>
       <nav>
@@ -28,6 +30,8 @@ const Locales = ({ data }) => {
 
       <h3>Config</h3>
       <pre>{JSON.stringify(config, null, 2)}</pre>
+
+      
     </Layout>
   )
 }
