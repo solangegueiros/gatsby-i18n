@@ -3,9 +3,9 @@ import { LocalizedLink } from "gatsby-theme-i18n"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const NotFound = () => {
+const NotFound = ({ pageContext }) => {
   return (
-    <Layout>
+    <Layout pageContext={pageContext}>
       <Seo title="404 - Page Not Found" />
       <h1>404</h1>
       <p>Page Not Found</p>
