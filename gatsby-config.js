@@ -1,6 +1,7 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby i18n GitBook`,
@@ -35,14 +36,22 @@ module.exports = {
           interpolation: {
             escapeValue: false, // React already does escaping
           },
+          keySeparator: false,
+          nsSeparator: false,          
         },
+        pages: [
+          {
+            matchPath: '/:lang?/docs/:uid',
+            getLanguageFromPath: true,
+          },
+        ],        
       },
     },    
     {
       resolve: `gatsby-source-filesystem`,  // Source for the doc folder
       options: {
         name: `docs`,
-        path: `${__dirname}/doc`,
+        path: `${__dirname}/docs`,
       },
     },    
     `gatsby-plugin-image`,
@@ -50,6 +59,5 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-mdx`,
     `gatsby-plugin-sass`,
-
 ]
 };

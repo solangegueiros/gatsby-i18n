@@ -1,29 +1,33 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/layout'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import Layout from '../components/Layout'
+
 
 const DocPage = ({ data }) => {
+  const { mdx } = data;
 
-  const { body, frontmatter } = data.mdx
   return (
     <Layout>
-      <h1>{frontmatter.title}</h1>
-      <MDXRenderer>{body}</MDXRenderer>
+      <main className="doc-page">
+        <h1>{mdx.frontmatter.title}</h1>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </main>
     </Layout>
-  )
-
-}
+  );
+};
 
 export const query = graphql`
-  query($id: String!) {
+  query DocPageQuery($id: String!) {
     mdx(id: { eq: $id }) {
       body
       frontmatter {
         title
+        slug
+        language
       }
     }
   }
-`
+`;
 
 export default DocPage

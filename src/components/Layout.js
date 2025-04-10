@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'gatsby-plugin-react-i18next'
-import Sidebar from './sidebar'
+import Sidebar from './Sidebar'
 import '../styles/sidebar.scss'
 
 const Layout = ({ children, pageTitle }) => {
