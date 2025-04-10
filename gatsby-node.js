@@ -3,9 +3,10 @@ const path = require('path')
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
   
+    //allMdx(filter: { internal: { contentFilePath: { regex: "/doc/" } } }) {
     const result = await graphql(`
     {
-        allMdx(filter: { internal: { contentFilePath: { regex: "/doc/" } } }) {
+        allMdx {
         nodes {
             id
             frontmatter {
@@ -14,10 +15,13 @@ exports.createPages = async ({ graphql, actions }) => {
         }
         }
     }
-    `)
+    `);
+
     if (result.errors) {
-        throw result.errors
-      }    
+    console.error(result.errors);
+    return;
+    }
+
     if (!result.data || !result.data.allMdx) {
         console.error("MDX query failed:", result)
         return
