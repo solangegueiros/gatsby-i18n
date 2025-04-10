@@ -25,6 +25,8 @@
   "slides": "Slides",
   "video": "Video",
   "notTranslated": "Esta página ainda não foi traduzida.",
-  "hello": "Olá",
-  "welcome": "Bem-vindo(a)"
+  "homePage": {
+    "title": "Bem-vindo à Documentação",
+    "welcomeMessage": "Este é o seu site estilo GitBook com suporte a i18n."
+  }
 }

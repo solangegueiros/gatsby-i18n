@@ -8,8 +8,8 @@ const IndexPage = () => {
   return (
     <Layout>
       <div>
-        <h1>{t('welcome')}</h1>
-        <p>{t('helloWorld')}</p>
+      <h1>{t('homePage.title')}</h1>
+      <p>{t('homePage.welcomeMessage')}</p>
       </div>
     </Layout>
   )

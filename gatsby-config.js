@@ -8,18 +8,33 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        "name": "pages",
+        "path": "./src/pages/"
+      },
+      __key: "pages"
+    },    
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/locales`,
+        name: `locale`,
+      },
+    },  
+    {
       resolve: `gatsby-plugin-react-i18next`,
       options: {
-        localeJsonSourceName: `locales`, // Name of the source plugin
+        localeJsonSourceName: `locale`, // Name from gatsby-source-filesystem
+        ns: ["translation"], // default namespace
+        defaultNS: "translation",
         languages: [`en`, `pt`],
         defaultLanguage: `en`,
-        siteUrl: `https://yourdomain.com`,
+        siteUrl: `https://www.yourdomain.tld`, // Already in siteMetadata, just repeat here
         i18nextOptions: {
           interpolation: {
-            escapeValue: false,
+            escapeValue: false, // React already does escaping
           },
-          keySeparator: false,
-          nsSeparator: false,
         },
       },
     },
@@ -27,13 +42,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-mdx`, 
-    {
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      "name": "pages",
-      "path": "./src/pages/"
-    },
-    __key: "pages"
-  }
+
 ]
 };
