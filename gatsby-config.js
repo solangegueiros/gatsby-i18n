@@ -26,8 +26,8 @@ module.exports = {
       resolve: `gatsby-plugin-react-i18next`,
       options: {
         localeJsonSourceName: `locale`, // Name from gatsby-source-filesystem
-        ns: ["translation"], // default namespace
         defaultNS: "translation",
+        ns: ["translation"], // default namespace
         languages: [`en`, `pt`],
         defaultLanguage: `en`,
         siteUrl: `https://www.yourdomain.tld`, // Already in siteMetadata, just repeat here
