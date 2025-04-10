@@ -1,15 +1,24 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'gatsby-plugin-react-i18next'
 import Sidebar from './sidebar'
+import '../styles/sidebar.scss'
 
 const Layout = ({ children, pageTitle }) => {
   const { t } = useTranslation()
+  
+  const [isSidebarOpen, setSidebarOpen] = useState(false)
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
 
   return (
-    <div className="flex">
-      <Sidebar />
-      <main className="ml-64 p-6 w-full">
-        <h1 className="text-2xl font-bold mb-4">{t(pageTitle)}</h1>
+    <div className="layout">
+      <button className="sidebar-toggle" onClick={toggleSidebar}>
+        ☰
+      </button>
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <Sidebar />
+      </div>
+      <main className="main-content">
+        <h1 >{t(pageTitle)}</h1>
         {children}
       </main>
     </div>

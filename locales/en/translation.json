@@ -28,5 +28,11 @@
   "homePage": {
     "title": "Welcome to Our Site",
     "welcomeMessage": "We're glad to have you here."
+  },
+  "docs": "Docs",
+  "docsMenu": {
+    "introduction": "Introduction",
+    "getting_started": "Getting Started"
   }
+
 }

@@ -3,8 +3,8 @@
  */
 module.exports = {
   siteMetadata: {
-    title: ` Gitbook`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Gatsby i18n GitBook`,
+    siteUrl: `https://yourdomain.com`,
   },
   plugins: [
     {
@@ -37,11 +37,19 @@ module.exports = {
           },
         },
       },
-    },
+    },    
+    {
+      resolve: `gatsby-source-filesystem`,  // Source for the doc folder
+      options: {
+        name: `docs`,
+        path: `${__dirname}/doc`,
+      },
+    },    
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-mdx`, 
+    `gatsby-plugin-mdx`,
+    `gatsby-plugin-sass`,
 
 ]
 };
