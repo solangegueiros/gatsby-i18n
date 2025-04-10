@@ -1,31 +1,31 @@
 {
-  "name": "gatsby-example-i18n",
-  "version": "2.0.0",
-  "main": "index.js",
-  "author": "Solange Gueiros <solangegueiros@gmail.com>",
+  "name": "gitbook",
+  "version": "1.0.0",
   "private": true,
-  "license": "MIT",
+  "description": "gitbook",
+  "author": "Solange Gueiros",
   "keywords": [
-    "gatsby",
-    "i18n"
-  ],  
+    "gatsby"
+  ],
   "scripts": {
     "develop": "gatsby develop",
+    "start": "gatsby develop",
     "build": "gatsby build",
-    "clean": "gatsby clean",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
-    "gatsby": "^4.3.0",
-    "gatsby-plugin-create-client-paths": "^4.3.0",
-    "gatsby-plugin-mdx": "^3.3.0",
-    "gatsby-plugin-react-helmet": "^5.3.0",
-    "gatsby-source-filesystem": "^4.3.0",
-    "gatsby-theme-i18n": "^3.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0"
+    "@mdx-js/react": "^2.3.0",
+    "gatsby": "^5.14.1",
+    "gatsby-plugin-image": "^3.14.0",
+    "gatsby-plugin-mdx": "^5.14.1",
+    "gatsby-plugin-react-i18next": "^3.0.1",
+    "gatsby-plugin-sharp": "^5.14.0",
+    "gatsby-source-filesystem": "^5.14.0",
+    "gatsby-transformer-sharp": "^5.14.0",
+    "i18next": "^22.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^12.3.1"
   }
 }

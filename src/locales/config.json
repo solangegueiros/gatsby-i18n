@@ -8,14 +8,6 @@
     "dateFormat": "MM/DD/YYYY"
   },
   {
-    "code": "pt",
-    "hrefLang": "pt-BR",
-    "name": "Portuguese",
-    "localName": "Português",
-    "langDir": "ltr",
-    "dateFormat": "DD/MM/YYYY"
-  },
-  {
     "code": "es",
     "hrefLang": "es-ES",
     "name": "Spanish",
@@ -24,11 +16,11 @@
     "dateFormat": "DD/MM/YYYY"
   },
   {
-    "code": "de",
-    "hrefLang": "de-DE",
-    "name": "German",
-    "localName": "Deutsch",
+    "code": "pt",
+    "hrefLang": "pt-BR",
+    "name": "Portuguese",
+    "localName": "Português",
     "langDir": "ltr",
-    "dateFormat": "DD.MM.YYYY"
-  }  
+    "dateFormat": "DD/MM/YYYY"
+  } 
 ]

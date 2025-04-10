@@ -1,45 +1,39 @@
+/**
+ * @type {import('gatsby').GatsbyConfig}
+ */
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://i18n.solange.blog.br/",
-    title: "Gatsby example i18n",
-    description: "Gatsby example for i18n theme",
-    author: "Solange Gueiros",
+    title: ` Gitbook`,
+    siteUrl: `https://www.yourdomain.tld`
   },
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-react-i18next`,
       options: {
-        path: `${__dirname}/src/pages`,
-        name: `pages`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/app/*`] },
-    },
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-theme-i18n`,
-      options: {
-        defaultLang: `en`,
-        locales: `en es pt de`,
-        configPath: require.resolve(`./i18n/config.json`),
-      },
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        defaultLayouts: {
-          default: require.resolve(`./src/components/layout.js`),
+        localeJsonSourceName: `locales`, // Name of the source plugin
+        languages: [`en`, `pt`],
+        defaultLanguage: `en`,
+        siteUrl: `https://yourdomain.com`,
+        i18nextOptions: {
+          interpolation: {
+            escapeValue: false,
+          },
+          keySeparator: false,
+          nsSeparator: false,
         },
       },
     },
-  ],
-}
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-mdx`, 
+    {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      "name": "pages",
+      "path": "./src/pages/"
+    },
+    __key: "pages"
+  }
+]
+};
