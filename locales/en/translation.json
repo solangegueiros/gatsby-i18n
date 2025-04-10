@@ -24,9 +24,17 @@
   "links": "Links",
   "slides": "Slides",
   "video": "Video",
-  "notTranslated": "This page hasn't been translated yet.",
+  "notTranslated": {
+    "title": "Translation not available",
+    "message": "This page is not yet available in your selected language."
+  },  
   "homePage": {
-    "title": "Welcome to Our Site",
-    "welcomeMessage": "We're glad to have you here."
+    "title": "Welcome",
+    "welcomeMessage": "Hello, welcome to our website!"
+  },
+  "docs": "Docs",
+  "docsMenu": {
+    "introduction": "Introduction",
+    "getting_started": "Getting Started"
   }
 }
