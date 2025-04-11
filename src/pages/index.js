@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import { useTranslation } from 'gatsby-plugin-react-i18next'
+
 
 const IndexPage = () => {
   const { t } = useTranslation()
