@@ -14,7 +14,14 @@ module.exports = {
         "path": "./src/pages/"
       },
       __key: "pages"
-    },    
+    },
+    {
+      resolve: `gatsby-source-filesystem`,  // Source for the doc folder
+      options: {
+        name: `docs`,
+        path: `${__dirname}/docs`,
+      },
+    },     
     {
       resolve: `gatsby-source-filesystem`,
       options: {
