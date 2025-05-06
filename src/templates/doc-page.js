@@ -1,17 +1,20 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
+import ReactMarkdown from "react-markdown";
+
 import Layout from '../components/Layout'
+import { SEO }  from "../components/Seo"
 
 
-const DocPage = ({ data }) => {
+const DocPage = ({ data, children, pageContext: { language } }) => {
   const { mdx } = data;
 
   return (
-    <Layout>
+    <Layout pageTitle={mdx.frontmatter.title}>
       <main className="doc-page">
-        <h1>{mdx.frontmatter.title}</h1>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
+        <ReactMarkdown>
+          {mdx.body}
+        </ReactMarkdown> 
       </main>
     </Layout>
   );
@@ -31,3 +34,7 @@ export const query = graphql`
 `;
 
 export default DocPage
+
+export const Head = ({ data }) => (  
+  <SEO pageTitle={data?.mdx?.frontmatter?.title ?? "Not Translated"} />
+)

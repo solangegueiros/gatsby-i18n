@@ -5,25 +5,28 @@ import { useTranslation } from 'gatsby-plugin-react-i18next'
 import Layout from '../components/Layout'
 import { SEO }  from "../components/Seo"
 
-const PageTitle = "Home"
-// console.log("PageTitle: ", PageTitle);
+const PageTitle = "About Me"
 
-const IndexPage = () => {
+const AboutPage = () => {
   const { t } = useTranslation()
-  const PageLocalized = t('homePage.title')
+  const PageLocalized = t('aboutPage.title')
 
   return (
     <Layout pageTitle={PageLocalized}>
-        <p>{t('homePage.welcomeMessage')}</p>
+      <p>{t('aboutPage.description')}</p>
     </Layout>
   )
 }
 
-export default IndexPage
+export default AboutPage
+
 
 export const Head = () => (
-  <SEO pageTitle={PageTitle} />
+  <>
+    <SEO pageTitle={PageTitle} pageDescription="About me" />
+  </>
 )
+
 
 // This is mandatory for every page using useTranslation() or anything from gatsby-plugin-react-i18next.
 export const query = graphql`

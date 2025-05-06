@@ -2,7 +2,6 @@
 import * as React from 'react'
 import { Link, useI18next, useTranslation } from 'gatsby-plugin-react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
-import '../styles/sidebar.scss'
 
 const navItems = [
   { titleKey: 'introduction', path: '/introduction' },
@@ -11,12 +10,12 @@ const navItems = [
   
 
 const Sidebar = () => {
-  const { languages, changeLanguage, language } = useI18next()
   const { t } = useTranslation()
 
   return (
     <aside className="sidebar">
       <LanguageSwitcher />
+      
       <h2 className="sidebar__title">{t('docs')}</h2>
       <nav className="sidebar__nav">
         {navItems.map(item => (

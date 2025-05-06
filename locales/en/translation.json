@@ -1,41 +1,23 @@
 {
+  "test": "Testing message",
   "home": "Home",
   "language": "Language",
-  "en": "English",
-  "es": "Spanish",
-  "pt": "Portuguese",
-  "english": "English",
-  "spanish": "Spanish",
-  "portuguese": "Portuguese",
-  "helloWorld": "Hello World",
-  "in": "in",
-  "about": "About me",
-  "miniBioTitle": "Developer Advocate at Chainlink Labs",
-  "miniBioContent": "Blockchain educator and developer focused on Ethereum, smart contracts and Bitcoin. MSc in digital currencies. She has been working with technology for over 20 years. Speaker in world conferences since 2018, also she won awards at Ethereum hackathons. Co-founder ETHSamba.  She was listed in Cointelegraph Brazil top 50 and top 2 women. ",
-  "profilePictures": "Photo album (click here)",
-  "blog": "Blog",
-  "lastPosts": "Last posts",
-  "allPosts": "go to all posts",
-  "events": "Events",
-  "lastEvents": "Last events",
-  "allEvents": "go to all events",
-  "article": "Article",
-  "organizer": "Made by",
-  "links": "Links",
-  "slides": "Slides",
-  "video": "Video",
-  "notTranslated": {
-    "title": "Translation not available",
-    "message": "This page is not yet available in your selected language."
-  },  
+  "notTranslated": "This page hasn't been translated yet.",
   "homePage": {
     "title": "Welcome to Our Site",
     "welcomeMessage": "We're glad to have you here."
   },
-  "docs": "Docs",
-  "docsMenu": {
-    "introduction": "Introduction",
-    "getting_started": "Getting Started"
-  }
-
+  "aboutPage": {
+    "title": "About Me",
+    "description": "This is the about page."
+  },
+  "blogPage": {
+    "posted": "Posted on ",
+    "readMore": "Read more"
+  },  
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "blog": "Blog"
+  }  
 }

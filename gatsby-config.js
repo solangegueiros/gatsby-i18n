@@ -1,13 +1,18 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+const i18nConfig = require('./i18n-config');
+const siteUrl = process.env.URL || `http://localhost:8000`;
 
 module.exports = {
   siteMetadata: {
     title: `Gatsby i18n GitBook`,
-    siteUrl: `https://yourdomain.com`,
+    description: `Gatsby GitBook with Localization`,
+    twitterUsername: `@solangegueiros`,
+    image: `/icon.png`,    
+    siteUrl,
   },
-  plugins: [
+  plugins: [    
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -22,31 +27,14 @@ module.exports = {
         path: `${__dirname}/locales`,
         name: `locale`,
       },
-    },  
+    },
     {
-      resolve: `gatsby-plugin-react-i18next`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        localeJsonSourceName: `locale`, // Name from gatsby-source-filesystem
-        defaultNS: "translation",
-        ns: ["translation"], // default namespace
-        languages: [`en`, `pt`],
-        defaultLanguage: `en`,
-        siteUrl: `https://www.yourdomain.tld`, // Already in siteMetadata, just repeat here
-        i18nextOptions: {
-          interpolation: {
-            escapeValue: false, // React already does escaping
-          },
-          keySeparator: false,
-          nsSeparator: false,          
-        },
-        pages: [
-          {
-            matchPath: '/:lang?/docs/:uid',
-            getLanguageFromPath: true,
-          },
-        ],        
-      },
-    },    
+        name: `blog`,
+        path: `${__dirname}/blog`,
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,  // Source for the doc folder
       options: {
@@ -54,10 +42,33 @@ module.exports = {
         path: `${__dirname}/docs`,
       },
     },    
+    {
+      resolve: `gatsby-plugin-react-i18next`,
+      options: {
+        ...i18nConfig,
+        siteUrl: siteUrl, // Already in siteMetadata, just repeat here
+        i18nextOptions: {
+          fallbackLng: i18nConfig.defaultLanguage,
+          supportedLngs: i18nConfig.languages,
+          defaultNS: i18nConfig.defaultNS,          
+          interpolation: {
+            escapeValue: false, // React already does escaping
+          },
+          //keySeparator: false,
+          //nsSeparator: false,          
+        },
+        // pages: [
+        //   {
+        //     matchPath: '/:lang?/docs/:uid',
+        //     getLanguageFromPath: true,
+        //   },
+        // ],    
+      },    
+    },    
+    `gatsby-plugin-mdx`,    
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-mdx`,
     `gatsby-plugin-sass`,
-]
+  ]
 };

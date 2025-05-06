@@ -12,41 +12,86 @@ const defaultLanguage = i18nPlugin?.options?.defaultLanguage || 'en';
 
 const docTemplate = path.resolve(`./src/templates/doc-page.js`);
 const notTranslatedTemplate = path.resolve(`./src/templates/not-translated.js`);
+const blogTemplate = path.resolve(`./src/templates/blog-post.js`); 
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.onCreateNode = ({ node, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === "Mdx") {
+
+    const name = path.basename(
+      node.internal.contentFilePath,
+      ".mdx"
+    );
+
+    const isDefault = name === "index";
+  
+    const lang = isDefault
+      ? defaultLanguage
+      : name.split(".")[1];
+
+    createNodeField({ node,
+      "name": "locale",
+      "value": lang });
+    createNodeField({ node,
+      "name": "isDefault",
+      "value": isDefault });
+  }
+};
+
+
+exports.createPages = async ({ graphql, actions, reporter }) => {
     const { createPage } = actions;
   
     const result = await graphql(`
         {
-            allFile(
+          docs: allFile(
             filter: { sourceInstanceName: { eq: "docs" }, extension: { eq: "mdx" } }
-            ) {
+          ) {
             nodes {
-                childMdx {
+              childMdx {
                 frontmatter {
-                    slug
+                  slug
                 }
                 internal {
-                    contentFilePath
+                  contentFilePath
                 }
+              }
+              name
+              relativeDirectory
+            }
+          }
+          blogList: allMdx(filter: {internal: {contentFilePath: {regex: "/blog/"}}}) {
+            edges {
+              node {
+                id
+                frontmatter {
+                  slug
                 }
-                name
-                relativeDirectory
+                internal {
+                  contentFilePath
+                }
+                fields {
+                  isDefault
+                  locale
+                }
+              }
             }
-            }
+          }            
         }
     `);
 
     if (result.errors) {
-        throw result.errors;
+      reporter.panicOnBuild('Error loading MDX result', result.errors)
     }
 
-    const nodes = result.data.allFile.nodes;    
+    //DOC PAGES
+    const nodesDoc = result.data.docs.nodes;    
   
     // Build a map like: { 'introduction': { en: node1, pt: node2 } }
     const pagesBySlug = {};
 
-    nodes.forEach(node => {
+    nodesDoc.forEach(node => {
         const slug = node.childMdx.frontmatter.slug || node.name;
         const language = node.relativeDirectory;
 
@@ -95,73 +140,35 @@ exports.createPages = async ({ graphql, actions }) => {
         });
     });
 
-  };
-  
-
-
-/*    
-    const result = await graphql(`
-        query {
-        allMdx(filter: { internal: { contentFilePath: { regex: "/docs/" } } }) {
-            nodes {
-            id
-            frontmatter {
-                slug
-                language
-                title
-            }
-            }
-        }
-        }
-    `);
-
-    if (result.errors) {
-    console.error(result.errors);
-    return;
-    }
-
-    if (!result.data || !result.data.allMdx) {
-        console.error("MDX query failed:", result)
+    //BLOG PAGES
+    const blogNodes = result.data.blogList.edges;
+    blogNodes.forEach((post, index) => {
+      if (!post) {
+        console.log("\n ERROR: post is NULL ", {index}, "\n", JSON.stringify(post, null, 2));
         return
-    }
-
-    const docNodes = result.data.allMdx.nodes;
-
-    // Group by slug
-    const pagesBySlug = {};
-
-    docNodes.forEach(node => {
-      const { slug, language } = node.frontmatter;
-      if (!pagesBySlug[slug]) {
-        pagesBySlug[slug] = {};
-      }
-      pagesBySlug[slug][language] = node.id;
+      } 
+      const { id, frontmatter, fields } = post.node;
+      const { slug } = frontmatter;
+      const { isDefault, locale } = fields;
+        
+      const blogTemplate = path.resolve(`./src/templates/blog-post.js`); // Use a fixed template
+      const pagePath = `/blog/${slug}`;
+  
+      const pageData = {
+        "path": pagePath,
+        "component": blogTemplate,
+        "context": {
+          id,
+          "language": locale,
+          slug
+        }
+      };
+      if (isDefault) createPage(pageData);
+  
+      console.log(`✅ Create page: /${locale}/blog/${slug} | ID: ${id}`);
     });
+    
+    console.log("\n\n");
 
-    const languages = ['en', 'pt'];
-
-  Object.keys(pagesBySlug).forEach(slug => {
-    languages.forEach(language => {
-      if (pagesBySlug[slug][language]) {
-        createPage({
-          path: `/${language}${slug}`,
-          component: docTemplate,
-          context: {
-            id: pagesBySlug[slug][language],
-            language,
-          },
-        });
-      } else {
-        createPage({
-          path: `/${language}${slug}`,
-          component: notTranslatedTemplate,
-          context: {
-            slug,
-            language,
-          },
-        });
-      }
-    });
-  });
-*/
+  };
   
