@@ -1,11 +1,12 @@
 {
-  "name": "gitbook",
+  "name": "gatsby-i18n-gitbook",
   "version": "1.0.0",
   "private": true,
-  "description": "gitbook",
+  "description": "blog docs gitbook with localization",
   "author": "Solange Gueiros",
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "i18n"
   ],
   "scripts": {
     "develop": "gatsby develop",
@@ -15,7 +16,6 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@mdx-js/react": "^2.3.0",
     "gatsby": "^5.14.1",
     "gatsby-plugin-image": "^3.14.0",
     "gatsby-plugin-mdx": "^5.14.1",
@@ -28,6 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.3.1",
+    "react-markdown": "^10.1.0",
     "sass": "^1.86.3"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "test": "Mensaje de prueba",
+  "home": "Comienzo",
+  "language": "Idioma",
+  "notTranslated": "Esta página aún no ha sido traducida.",
+  "homePage": {
+    "title": "Bienvenido a nuestro sitio web",
+    "welcomeMessage": "Estamos felices de tenerte aquí."
+  },
+  "aboutPage": {
+    "title": "Sobre mí",
+    "description": "Esta es la página acerca de mí."
+  },
+  "blogPage": {
+    "posted": "Publicado en ",
+    "readMore": "Leer más"
+  },      
+  "menu": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "blog": "Blog"
+  }
+}

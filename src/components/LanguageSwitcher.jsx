@@ -1,11 +1,11 @@
 // src/components/LanguageSwitcher.js
 import React from 'react'
 import { useI18next, useTranslation } from 'gatsby-plugin-react-i18next'
-import '../styles/sidebar.scss'
 
 const LanguageSwitcher = () => {
   const { languages, changeLanguage, language } = useI18next()
   const { t } = useTranslation()
+  //console.log("\n  languages", JSON.stringify(languages, null, 2));
 
   return (
     <div className="sidebar__language-switcher">

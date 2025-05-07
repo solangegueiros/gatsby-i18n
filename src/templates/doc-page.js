@@ -1,33 +1,52 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
+import ReactMarkdown from "react-markdown";
+
 import Layout from '../components/Layout'
+import { SEO }  from "../components/Seo"
 
-
-const DocPage = ({ data }) => {
-  const { mdx } = data;
-
-  return (
-    <Layout>
-      <main className="doc-page">
-        <h1>{mdx.frontmatter.title}</h1>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </main>
-    </Layout>
-  );
-};
 
 export const query = graphql`
-  query DocPageQuery($id: String!) {
-    mdx(id: { eq: $id }) {
+  query DocPageQuery($language: String!, $slug: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+    mdx(
+      frontmatter: { slug: { eq: $slug } }
+      fields: { locale: { eq: $language } }
+    ) {
       body
       frontmatter {
         title
         slug
-        language
       }
     }
   }
 `;
 
+const DocPage = ({ data, children, pageContext: { language } }) => {
+  const { mdx } = data;
+
+  return (
+    <Layout pageTitle={mdx.frontmatter.title}>
+      <main className="doc-page">
+        <ReactMarkdown>
+          {mdx.body}
+        </ReactMarkdown> 
+      </main>
+    </Layout>
+  );
+};
+
+
 export default DocPage
+
+export const Head = ({ data }) => (  
+  <SEO pageTitle={data?.mdx?.frontmatter?.title ?? "Not Translated"} />
+)
