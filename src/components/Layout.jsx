@@ -1,10 +1,11 @@
+//src/components/Layout.jsx
 import React, { useState } from 'react'
 
 import Menu from './Menu'
 import Sidebar from './Sidebar'
 
 
-const Layout = ({ children, pageTitle }) => {
+const Layout = ({ children, pageTitle, data }) => {
   
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)

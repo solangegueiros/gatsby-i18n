@@ -6,6 +6,30 @@ import Layout from '../components/Layout'
 import { SEO }  from "../components/Seo"
 
 
+export const query = graphql`
+  query DocPageQuery($language: String!, $slug: String!) {
+    locales: allLocale(filter: { language: { eq: $language } }) {
+      edges {
+        node {
+          ns
+          data
+          language
+        }
+      }
+    }
+    mdx(
+      frontmatter: { slug: { eq: $slug } }
+      fields: { locale: { eq: $language } }
+    ) {
+      body
+      frontmatter {
+        title
+        slug
+      }
+    }
+  }
+`;
+
 const DocPage = ({ data, children, pageContext: { language } }) => {
   const { mdx } = data;
 
@@ -20,18 +44,6 @@ const DocPage = ({ data, children, pageContext: { language } }) => {
   );
 };
 
-export const query = graphql`
-  query DocPageQuery($id: String!) {
-    mdx(id: { eq: $id }) {
-      body
-      frontmatter {
-        title
-        slug
-        language
-      }
-    }
-  }
-`;
 
 export default DocPage
 

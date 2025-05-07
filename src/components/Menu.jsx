@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { useTranslation } from 'gatsby-plugin-react-i18next'
-
+import LanguageSwitcher from './LanguageSwitcher'
 
 const Menu = () => {
   const { t } = useTranslation()
@@ -39,6 +39,9 @@ const Menu = () => {
               </li>
           </ul>
         </nav>
+        <div>
+          <LanguageSwitcher />
+        </div>        
       </div>
     )
   }
