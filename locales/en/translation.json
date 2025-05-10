@@ -18,6 +18,7 @@
   "menu": {
     "home": "Home",
     "about": "About",
-    "blog": "Blog"
+    "blog": "Blog",
+    "docs": "Docs"
   }  
 }

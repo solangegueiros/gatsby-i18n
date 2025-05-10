@@ -33,6 +33,11 @@ const Menu = () => {
                 </Link>
               </li>
               <li className="menu-link-item">
+                <Link to="/docs" className="nav-link-text">
+                    {t('menu.docs')}
+                </Link>
+              </li>              
+              <li className="menu-link-item">
                 <Link to="/about" className="nav-link-text">
                     {t('menu.about')}
                 </Link>
