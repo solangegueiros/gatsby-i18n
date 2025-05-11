@@ -22,7 +22,10 @@ export const query = graphql`
     }
     blogs: allMdx(
       sort: { frontmatter: { date: DESC } }
-      filter: { fields: {locale: {eq: $language} } }
+      filter: { 
+        fields: {locale: {eq: $language} } 
+        internal: {contentFilePath: {regex: "/blog/"}}
+      }
     ) {
         nodes {
           frontmatter {

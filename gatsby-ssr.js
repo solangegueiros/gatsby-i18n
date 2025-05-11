@@ -1,5 +1,3 @@
-import './src/styles/site.scss';
-
 import React from "react";
 import { SidebarProvider } from "./src/context/SidebarContext";
 

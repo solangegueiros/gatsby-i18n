@@ -1,49 +1,33 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal Starter
-</h1>
 
-## 🚀 Quick start
+## Tutorial 2025 i18n
 
-1.  **Create a Gatsby site.**
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+Depois de muitas buscas, encontrei um projeto que funciona!
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+> Localization approach based on the work of [Roman Horbunov](https://www.linkedin.com/in/roman-horbunovv/)  
+> Article: ["Translation of static pages and MDX files pages in a Gatsby project"](https://www.rolique.io/news/translation-of-static-pages-and-mdx-files-pages-in-a-gatsby-project)
+> Source code: [https://github.com/NewRoman/gatsby-tutor](https://github.com/NewRoman/gatsby-tutor)
 
-2.  **Start developing.**
 
-    Navigate into your new site’s directory and start it up.
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+## Referencias
 
-3.  **Open the code and start customizing!**
+Nao estou usando src/pages/blog/{mdx.frontmatter__slug}.js
 
-    Your site is now running at http://localhost:8000!
+- [https://www.gatsbyjs.com/docs/tutorial/getting-started/part-6/](https://www.gatsbyjs.com/docs/tutorial/getting-started/part-6/)
+- [https://github.com/gatsbyjs/tutorial-example](https://github.com/gatsbyjs/tutorial-example)
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+### Construindo páginas do Blog em gatsby-node.js
 
-4.  **Learn more**
+- [https://www.gatsbyjs.com/docs/how-to/routing/mdx/](https://www.gatsbyjs.com/docs/how-to/routing/mdx/)
+- [https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/)
+- [extending-the-graphql-mdx-nodes](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/#extending-the-graphql-mdx-nodes)
+- [https://github.com/gatsbyjs/gatsby/tree/a216ded38625fa42dfc7845b8e192c3e54798441/packages/gatsby-plugin-mdx]
+(https://github.com/gatsbyjs/gatsby/tree/a216ded38625fa42dfc7845b8e192c3e54798441/packages/gatsby-plugin-mdx)
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+### Create pages
 
-## 🚀 Quick start (Netlify)
+- [https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/#createPages]
+(https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/#createPages)
+- [Creating and Modifying Pages](https://www.gatsbyjs.com/docs/creating-and-modifying-pages/)
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
-
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)

@@ -18,6 +18,7 @@
   "menu": {
     "home": "Inicio",
     "about": "Sobre mim",
-    "blog": "Blog"
+    "blog": "Blog",
+    "docs": "Docs"
   }
 }

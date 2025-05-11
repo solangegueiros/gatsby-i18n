@@ -1,5 +1,6 @@
 const path = require('path')
 const config = require('./gatsby-config');
+const { createFilePath } = require(`gatsby-source-filesystem`)
 
 const i18nPlugin = config.plugins.find(
   p =>
@@ -44,25 +45,50 @@ function extractLocale({ filePath, type }) {
   return null
 }
 
+function getSubpath(filePath) {
+  const regex = /docs\/([a-z]{2})\/(.*)\/[^/]+\.mdx$/i;
+  const match = filePath.replace(/\\/g, '/').match(regex);
+  return match ? match[2] : '';
+}
 
-
-
-exports.onCreateNode = ({ node, actions }) => {
+exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === "Mdx") {
     //console.log("node", JSON.stringify(node, null, 2));
 
     filePath = node.internal.contentFilePath;
-    //console.log(`contentFilePath: ${filePath}`);
-    const isDoc = filePath => /[/\\]docs(?:[/\\][a-z]{2})?[/\\][^/\\]+\.mdx$/.test(filePath)
+    //console.log(`${filePath}`);
+    const isDoc = filePath => /[/\\]docs[/\\][a-z]{2}(?:[/\\].+)?\.mdx$/.test(filePath);
     const isBlog = filePath => /[/\\]blog[/\\][^/\\]+[/\\]index(\.[a-z]{2})?\.mdx$/.test(filePath)
     //console.log(` isDoc: ${isDoc(filePath)} \t isBlog: ${isBlog(filePath)}`);
 
-    const name = path.basename(
-      node.internal.contentFilePath,
-      ".mdx"
-    );
+    // extract the filename without the extension
+    const name = path.basename(filePath, ".mdx");
+    
+    //Doc Pages
+    //en/page1
+    //pt/page1
+    if (isDoc(filePath)) {
+
+      const match = filePath.match(/[/\\]docs[\/\\]([a-z]{2})[\/\\]/); // Match 'docs/<locale>/'
+      const locale = match ? match[1] : null;
+      const isDefault = locale === defaultLanguage;
+      //console.log(`language: ${locale} \t isDefault: ${isDefault}`);
+      
+      const subfolder = getSubpath(filePath); // Extract subfolder path
+      //console.log(`subfolder: ${subfolder}`);        
+        
+      createNodeField({ node,
+        "name": "locale",
+        "value": locale });
+      createNodeField({ node,
+        "name": "isDefault",
+        "value": isDefault });
+        createNodeField({ node,
+          "name": "subfolder",
+          "value": subfolder });          
+    }
 
     //Blog pages
     //index.mdx is the default language
@@ -77,22 +103,10 @@ exports.onCreateNode = ({ node, actions }) => {
       createNodeField({ node,
         "name": "isDefault",
         "value": isDefault });
-    }
-    
-    //Doc Pages
-    //en/page1
-    //pt/page1
-    if (isDoc(filePath)) {
-      const { locale, isDefault } = extractLocale({ filePath, type: "doc" })
-      //console.log(`language: ${locale} \t isDefault: ${isDefault}`); 
-
-      createNodeField({ node,
-        "name": "locale",
-        "value": locale });
-      createNodeField({ node,
-        "name": "isDefault",
-        "value": isDefault });         
-    }
+        createNodeField({ node,
+          "name": "subfolder",
+          "value": "" });               
+    }    
   }
 };
 
@@ -102,20 +116,21 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   
     const result = await graphql(`
         {
-          docs: allFile(
-            filter: { sourceInstanceName: { eq: "docs" }, extension: { eq: "mdx" } }
-          ) {
+          docs: allMdx(filter: {internal: {contentFilePath: {regex: "/docs/"}}}) {
             nodes {
-              childMdx {
-                frontmatter {
-                  slug
-                }
-                internal {
-                  contentFilePath
-                }
+              frontmatter {
+                slug
+                title
               }
-              name
-              relativeDirectory
+              id
+              fields {
+                isDefault
+                locale
+                subfolder
+              }
+              internal {
+                contentFilePath
+              }
             }
           }
           blogList: allMdx(filter: {internal: {contentFilePath: {regex: "/blog/"}}}) {
@@ -149,73 +164,30 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     const pagesBySlug = {};
 
     nodesDoc.forEach(node => {
-      const slug = node.childMdx.frontmatter.slug || node.name;
-      const language = node.relativeDirectory;
+      const { id, name, frontmatter, fields } = node;
+      const { slug } = frontmatter;
+      const { isDefault, locale, subfolder } = fields; 
+      //const subfolder = fields.subfolder || '';
 
-      if (!pagesBySlug[slug]) {
-        pagesBySlug[slug] = {};
-      }
+      const pagePath = subfolder ? `/docs/${subfolder}/${slug}` : `/docs/${slug}`;
+      console.log(pagePath);
+      //console.log(`DOCs page slug: ${slug} \t language: ${locale} \t subfolder: ${subfolder} pagePath: ${pagePath}`);
 
-      pagesBySlug[slug][language] = {
-        //path: `/${language}/${slug}`,
-        //path: `/doc/${slug}`,
-        component: docTemplate,
-        context: {
+      const pageData = {
+        "path": pagePath,
+        "component": docTemplate,
+        "context": {
+          id,
+          "language": locale,
           slug,
-          language,
-          filePath: node.childMdx.internal.contentFilePath,
-        },
-      };
-    });
-
-    // Now generate one page per language
-    Object.entries(pagesBySlug).forEach(([slug, langEntries]) => {
-      languages.forEach(language => {
-        const entry = langEntries[language];
-        const fallbackEntry = langEntries[defaultLanguage];
-        const pagePath = `/docs/${slug}`;
-
-        // var str = 'http://localhost//example/author/admin///';    
-        // var clean_url = str.replace(/([^:])(\/\/+)/g, '$1/');
-        if (entry) {
-          //console.log("Page entry: ", JSON.stringify(entry, null, 2));
-
-          const pageData = {
-            "path": pagePath,
-            "component": docTemplate,
-            "context": {
-              slug,
-              language,
-              filePath: entry.context.filePath,
-            }
-          };
-
-          // if (entry.language === defaultLanguage) {
-          //   pageData.context.isDefault = true;
-          // }
-
-          createPage(pageData);
-          //console.log(`✅ Create page: language: ${language}/docs/${slug}\n`, JSON.stringify(pageData, null, 2));
-          console.log(`✅ Create DOC page: language: ${language}/docs/${slug}`);
-        } 
-        /*
-        else if (fallbackEntry) {
-          createPage({
-            //path: `/${language}/${slug}`,
-            "path": pagePath,
-            component: notTranslatedTemplate,
-            context: {
-                slug,
-                language,
-                fallbackFrom: defaultLanguage,
-            },
-          });
-          console.log(`❌ Create fallback page: language: ${language}/docs/${slug} | Fallback to ${defaultLanguage}`);                    
+          subfolder
         }
-        */ 
+      };
+      if (isDefault) createPage(pageData);
+
+      //console.log(`✅ Create DOC page: ID: ${id} \t language: ${locale} \t slug: ${slug} \t path: ${pagePath}`);      
              
-      });  
-    });
+    });  
 
 
     //BLOG PAGES
@@ -260,6 +232,6 @@ exports.onCreatePage = async ({ page, actions, getNodes }) => {
 
   //if (!id || !isBlogPage || !isDocPage) return;
   if (!isBlogPage && !isDocPage) return;
-  console.log(`\n onCreatePage: ${page.path} | language: ${page.context.language} | ID: ${page.context.id}`)
+  console.log(`onCreatePage: ${page.path} | language: ${page.context.language} | ID: ${page.context.id}`)
 
 };
