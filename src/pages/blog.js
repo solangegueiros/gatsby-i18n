@@ -40,12 +40,12 @@ export const query = graphql`
     }
   `
 
-const BlogPage = ({ data, pageContext: { language } }) => {
+const BlogPage = ({ data, pageContext: { language }, location }) => {
   const { t } = useTranslation();
 
 
   return (
-    <Layout pageTitle={PageTitle}>
+    <Layout pageTitle={PageTitle} location={location}>
       {
         data.blogs.nodes.map((node) => (
           <article key={node.id}>

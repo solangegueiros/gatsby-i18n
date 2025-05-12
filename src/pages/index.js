@@ -8,12 +8,14 @@ import { SEO }  from "../components/Seo"
 const PageTitle = "Home"
 // console.log("PageTitle: ", PageTitle);
 
-const IndexPage = () => {
+const IndexPage = ({ location }) => {
+  //console.log("IndexPage location\n", JSON.stringify(location, null, 2));
+
   const { t } = useTranslation()
   const PageLocalized = t('homePage.title')
 
   return (
-    <Layout pageTitle={PageLocalized}>
+    <Layout pageTitle={PageLocalized} location={location}>
         <p>{t('homePage.welcomeMessage')}</p>
     </Layout>
   )

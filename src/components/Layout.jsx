@@ -5,7 +5,8 @@ import Menu from './Menu'
 import Sidebar from './Sidebar'
 
 
-const Layout = ({ children, pageTitle, data }) => {
+const Layout = ({ children, pageTitle, location, data }) => {
+  //console.log("Layout location\n", JSON.stringify(location, null, 2));
   
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen)
@@ -18,7 +19,7 @@ const Layout = ({ children, pageTitle, data }) => {
         <button className="sidebar-toggle" onClick={toggleSidebar}>
           ☰
         </button>
-        <Sidebar className={isSidebarOpen ? 'open' : ''} />
+        <Sidebar className={isSidebarOpen ? 'open' : ''} location={location} />
 
         <main className="main-content">          
           <h1>{pageTitle}</h1>

@@ -31,20 +31,22 @@ export const query = graphql`
   }
 `;
 
-const BlogPost = ({ data, children, pageContext: { language } }) => {
+const BlogPost = ({ data, children, pageContext: { language }, location }) => {
   const { t } = useTranslation();
 
   const post = data.mdx
   if (!post) {
     return (
-      <Layout pageTitle={t("notTranslated")}/>
+      <Layout pageTitle={t('notTranslated.title')} location={location}>
+        <p>{t('notTranslated.message')}</p>
+      </Layout>
     )
   }
   else {
     //console.log("body ", `${post.body}`);
 
     return (
-      <Layout pageTitle={post.frontmatter.title}>
+      <Layout pageTitle={post.frontmatter.title} location={location}>
         <hr />        
         <p>
           {t('blogPage.posted')}
@@ -62,9 +64,10 @@ const BlogPost = ({ data, children, pageContext: { language } }) => {
   }
 }
 
+export default BlogPost
 
 export const Head = ({ data }) => (  
   <SEO pageTitle={data?.mdx?.frontmatter?.title ?? "Not Translated"} />
 )
 
-export default BlogPost
+

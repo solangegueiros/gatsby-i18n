@@ -12,10 +12,9 @@ const SidebarTree = ({ nodes, basePath = "/docs" }) => {
   const { openFolders, toggleFolder } = useSidebar();
  
 
-  const docsByLanguage = nodes.filter(doc => doc.fields.locale === language);
-  //const docsByLanguage = data.docs.nodes.filter(doc => doc.fields.locale === language);   
+  //const docsByLanguage = nodes.filter(doc => doc.fields.locale === language);
   //console.log("docsByLanguage \n", JSON.stringify(docsByLanguage, null, 2));
-  const tree = groupDocsBySubfolder(docsByLanguage);   
+  const tree = groupDocsBySubfolder(nodes);   
   //console.log("tree \n", JSON.stringify(tree, null, 2));
   
 
@@ -24,13 +23,6 @@ const SidebarTree = ({ nodes, basePath = "/docs" }) => {
   const folderGroups = Object.entries(tree)
   .filter(([_, v]) => v.children)
   .sort(([a], [b]) => parseInt(a) - parseInt(b));
-  /*
-    {
-    const aNum = parseInt(a.split("-")[0], 10);
-    const bNum = parseInt(b.split("-")[0], 10);
-    return aNum - bNum;
-  });
-  */
   // console.log("\n tree \n", JSON.stringify(tree, null, 2));
   // console.log("\n topLevelDocs \n", JSON.stringify(topLevelDocs, null, 2));
   // console.log("\n folderGroups \n", JSON.stringify(folderGroups, null, 2));

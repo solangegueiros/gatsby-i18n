@@ -43,7 +43,7 @@ export const query = graphql`
   `
 
 
-const DocsPage = ({ data, pageContext: { language } }) => {
+const DocsPage = ({ data, pageContext: { language }, location }) => {
 
   const tree = groupDocsBySubfolder(data.docs.nodes);
 
@@ -58,7 +58,7 @@ const DocsPage = ({ data, pageContext: { language } }) => {
   });
   
   return (
-    <Layout pageTitle={PageTitle}>
+    <Layout pageTitle={PageTitle} location={location}>
       <ul>
         {/* Top-level docs first */}
         {topLevelDocs.map(([_, doc]) => (

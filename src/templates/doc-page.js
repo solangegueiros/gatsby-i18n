@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
+import { useTranslation } from 'gatsby-plugin-react-i18next'
 import ReactMarkdown from "react-markdown";
 
 import Layout from '../components/Layout'
@@ -30,20 +31,31 @@ export const query = graphql`
   }
 `;
 
-const DocPage = ({ data, children, pageContext: { language } }) => {
-  const { mdx } = data;
+const DocPage = ({ data, children, pageContext: { language }, location }) => {
+  const { t } = useTranslation();
 
-  return (
-    <Layout pageTitle={mdx.frontmatter.title}>
-      <main className="doc-page">
+  const doc = data.mdx
+  if (!doc) {
+    return (
+      <Layout pageTitle={t('notTranslated.title')} location={location}>
+        <p>{t('notTranslated.message')}</p>
+      </Layout>
+    )
+  }
+  else {
+    //console.log("body ", `${post.body}`);
+
+    return (
+      <Layout pageTitle={doc.frontmatter.title} location={location}>
+        <hr />
         <ReactMarkdown>
-          {mdx.body}
-        </ReactMarkdown> 
-      </main>
-    </Layout>
-  );
-};
+          {doc.body}
+        </ReactMarkdown>
 
+      </Layout>
+    );
+  }
+};
 
 export default DocPage
 

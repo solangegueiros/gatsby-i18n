@@ -7,12 +7,12 @@ import { SEO }  from "../components/Seo"
 
 const PageTitle = "About Me"
 
-const AboutPage = () => {
+const AboutPage = ({ location }) => {
   const { t } = useTranslation()
   const PageLocalized = t('aboutPage.title')
 
   return (
-    <Layout pageTitle={PageLocalized}>
+    <Layout pageTitle={PageLocalized} location={location}>
       <p>{t('aboutPage.description')}</p>
     </Layout>
   )

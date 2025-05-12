@@ -2,7 +2,10 @@
   "test": "Mensaje de prueba",
   "home": "Comienzo",
   "language": "Idioma",
-  "notTranslated": "Esta página aún no ha sido traducida.",
+  "notTranslated": {
+    "title": "Sin traducción",
+    "message": "Esta página aún no ha sido traducida."
+  },
   "homePage": {
     "title": "Bienvenido a nuestro sitio web",
     "welcomeMessage": "Estamos felices de tenerte aquí."

@@ -1,0 +1,165 @@
+---
+title: "Markdown Syntax"
+slug: "markdown-syntax"
+order: 2
+---
+
+## Headings
+
+```markdown
+# heading 1
+
+## heading 2
+
+### heading 3
+
+#### heading 4
+
+##### heading 5
+
+###### heading 6
+```
+
+Here's how those tags render in HTML:
+
+# heading 1
+
+## heading 2
+
+### heading 3
+
+#### heading 4
+
+##### heading 5
+
+###### heading 6
+
+
+## Emphasized text
+
+- Italic
+  - one asterisk or one underscore
+    - `*italic*` or `_italic_`
+    - _italic!_
+- Bold
+  - two asterisks or two underscores
+    - `**bold**` or `__bold__`
+    - **bold!**
+- Italic and Bold
+
+  - three asterisks or three underscore
+    - `***italic and bold***` or `___italic and bold___`
+    - **_italic and bold!!_**
+
+## Lists
+
+### Unordered
+
+- can use `*`, `-`, or `+` for each list item
+
+<!-- prettier-ignore-start -->
+
+```markdown
+* Gatsby
+  * docs
+- Gatsby
+  - docs
++ Gatsby
+  + docs
+```
+
+<!-- prettier-ignore-end -->
+
+How unordered lists are rendered in HTML:
+
+- Gatsby
+  - docs
+- Gatsby
+  - docs
+- Gatsby
+  - docs
+
+### Ordered
+
+- number and period for each list item
+- using `1.` for each item can automatically increment depending on the content
+
+```markdown
+1. One
+1. Two
+1. Three
+```
+
+1. One
+2. Two
+3. Three
+
+## Links and images
+
+### Link
+
+Links in Markdown use this format. URLs can be relative or remote:
+
+```markdown
+[Text](url)
+```
+
+Example of a link rendering in HTML:
+
+[Gatsby site](https://www.gatsbyjs.com/)
+
+### Image with alt text
+
+```markdown
+![alt text](path-to-image)
+```
+
+### Image without alt text
+
+This pattern is appropriate for [decorative or repetitive images](https://www.w3.org/WAI/tutorials/images/decision-tree/):
+
+```markdown
+![](path-to-image)
+```
+
+## Blockquote
+
+- Use `>` to declare a blockquote
+- Adding multiple `>` will create nested blockquotes
+- It is recommended to place `>` before each line
+- You can use other Markdown syntax inside blockquotes
+
+```markdown
+> blockquote
+>
+> > nested blockquote
+>
+> > **I'm bold!**
+>
+> more quotes
+```
+
+> Blockquote
+>
+> > nested blockquote
+>
+> > **I'm bold!**
+>
+> more quotes
+
+## Code comments
+
+### Inline
+
+- Enclose the text in backticks \`code\`
+- Inline `code` looks like this sentence
+
+### Code blocks
+
+- Indent a block by four spaces
+
+
+## Helpful resources
+
+- [Markdown Syntax](https://daringfireball.net/projects/markdown/syntax)
+- [Basic Syntax](https://www.markdownguide.org/basic-syntax)
